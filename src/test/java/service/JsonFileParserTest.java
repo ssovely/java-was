@@ -14,7 +14,7 @@ public class JsonFileParserTest {
 
 	@Test
 	public void parseJsonFormFile() throws IOException {
-		List<ServerConfig> serverConfigs = jsonFileParser.parseJsonFormFile("vhosts.json", ServerConfig.class);
+		List<ServerConfig> serverConfigs = jsonFileParser.parseJsonFromFile("vhosts.json", ServerConfig.class);
 
 		assertThat(serverConfigs).hasSize(2)
 			.containsExactly(

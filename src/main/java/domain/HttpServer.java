@@ -26,10 +26,11 @@ public class HttpServer {
 		try (ServerSocket server = new ServerSocket(port.getValue())) {
 			while (true) {
 				try {
-					Socket request = server.accept();
-					//find VirtualHost
-				} catch (IOException ex) {
-					LOGGER.warn("Error accepting connection", ex);
+					Socket connection = server.accept();
+					VirtualHostRouter virtualHostRouter = new VirtualHostRouter(virtualHosts, connection);
+					pool.submit(virtualHostRouter);
+				} catch (IOException exception) {
+					LOGGER.error("Error accepting connection", exception);
 				}
 			}
 		}
