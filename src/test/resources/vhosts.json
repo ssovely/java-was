@@ -1,7 +1,17 @@
 [
   {
-    "serverPort": "90",
-    "serverName": "www.jeonghun.com",
+    "serverPort": "80",
+    "serverName": "www.jeonghun1.com",
+    "rootDirectory": "/",
+    "errorDocument": {
+      "403": "403.html",
+      "404": "404.html",
+      "500": "500.html"
+    }
+  },
+  {
+    "serverPort": "80",
+    "serverName": "www.jeonghun2.com",
     "rootDirectory": "/",
     "errorDocument": {
       "403": "403.html",

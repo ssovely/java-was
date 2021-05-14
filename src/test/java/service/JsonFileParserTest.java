@@ -16,7 +16,10 @@ public class JsonFileParserTest {
 	public void parseJsonFormFile() throws IOException {
 		List<ServerConfig> serverConfigs = jsonFileParser.parseJsonFormFile("vhosts.json", ServerConfig.class);
 
-		assertThat(serverConfigs).hasSize(1)
-			.containsExactly(new ServerConfig(90, "www.jeonghun.com"));
+		assertThat(serverConfigs).hasSize(2)
+			.containsExactly(
+				new ServerConfig(80, "www.jeonghun1.com", "/", null),
+				new ServerConfig(80, "www.jeonghun2.com", "/", null)
+			);
 	}
 }

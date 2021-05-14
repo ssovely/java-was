@@ -12,41 +12,27 @@ public class ServerConfig {
 	public ServerConfig() {
 	}
 
-	public ServerConfig(int serverPort, String serverName) {
+	public ServerConfig(int serverPort, String serverName, String rootDirectory, Map<String, String> errorDocument) {
 		this.serverPort = serverPort;
 		this.serverName = serverName;
+		this.rootDirectory = rootDirectory;
+		this.errorDocument = errorDocument;
 	}
 
 	public int getServerPort() {
 		return serverPort;
 	}
 
-	public void setServerPort(int serverPort) {
-		this.serverPort = serverPort;
-	}
-
 	public String getServerName() {
 		return serverName;
-	}
-
-	public void setServerName(String serverName) {
-		this.serverName = serverName;
 	}
 
 	public String getRootDirectory() {
 		return rootDirectory;
 	}
 
-	public void setRootDirectory(String rootDirectory) {
-		this.rootDirectory = rootDirectory;
-	}
-
 	public Map<String, String> getErrorDocument() {
 		return errorDocument;
-	}
-
-	public void setErrorDocument(Map<String, String> errorDocument) {
-		this.errorDocument = errorDocument;
 	}
 
 	@Override
