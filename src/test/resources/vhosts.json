@@ -1,0 +1,12 @@
+[
+  {
+    "serverPort": "90",
+    "serverName": "www.jeonghun.com",
+    "rootDirectory": "/",
+    "errorDocument": {
+      "403": "403.html",
+      "404": "404.html",
+      "500": "500.html"
+    }
+  }
+]
