@@ -10,6 +10,8 @@ import java.util.concurrent.Executors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import service.VirtualHostExecutor;
+
 public class HttpServer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(HttpServer.class);
 	private static final int MAX_THREAD = 50;
@@ -26,10 +28,11 @@ public class HttpServer {
 		try (ServerSocket server = new ServerSocket(port.getValue())) {
 			while (true) {
 				try {
-					Socket request = server.accept();
-					//find VirtualHost
-				} catch (IOException ex) {
-					LOGGER.warn("Error accepting connection", ex);
+					Socket connection = server.accept();
+					VirtualHostExecutor virtualHostExecutor = new VirtualHostExecutor(virtualHosts, connection);
+					pool.submit(virtualHostExecutor);
+				} catch (IOException exception) {
+					LOGGER.error("Error accepting connection", exception);
 				}
 			}
 		}
