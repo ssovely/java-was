@@ -1,6 +1,6 @@
 [
   {
-    "serverPort": "80",
+    "serverPort": "8080",
     "serverName": "www.jeonghun1.com",
     "rootDirectory": "/",
     "errorDocument": {
@@ -10,7 +10,7 @@
     }
   },
   {
-    "serverPort": "80",
+    "serverPort": "8080",
     "serverName": "www.jeonghun2.com",
     "rootDirectory": "/",
     "errorDocument": {

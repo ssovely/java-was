@@ -19,7 +19,7 @@ public class Port {
 		}
 	}
 
-	public int getValue(){
+	public int getValue() {
 		return port;
 	}
 

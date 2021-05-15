@@ -13,7 +13,7 @@ import domain.ServerConfig;
 public class ServerFactoryTest {
 
 	@Test
-	public void createHttpServer() {
+	public void createHttpServerTest() {
 		//given
 		List<ServerConfig> serverConfigs = new ArrayList<>();
 		serverConfigs.add(new ServerConfig(80, "www.jeonghun1.com", "/", null));

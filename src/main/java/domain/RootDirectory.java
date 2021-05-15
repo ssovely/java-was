@@ -15,7 +15,7 @@ public class RootDirectory {
 		this.directory = directory;
 	}
 
-	private void validatePath(String path){
+	private void validatePath(String path) {
 		if (StringUtils.isBlank(path)) {
 			throw new IllegalArgumentException("RootDirectoryPath must not be blank");
 		}

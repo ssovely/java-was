@@ -15,14 +15,14 @@ public class Main {
 
 	public static void main(String[] args) {
 		try {
-			List<ServerConfig> serverConfigs = new JsonFileParser().parseJsonFormFile(VHOSTS_CONFIG_FILE_PATH, ServerConfig.class);
+			List<ServerConfig> serverConfigs = new JsonFileParser().parseJsonFromFile(VHOSTS_CONFIG_FILE_PATH, ServerConfig.class);
 			List<HttpServer> servers = ServerFactory.createHttpServer(serverConfigs);
 
 			for (HttpServer server : servers) {
 				server.start();
 			}
-		} catch (IOException e) {
-			LOGGER.error("Server could not start", e);
+		} catch (IOException exception) {
+			LOGGER.error("Server could not start", exception);
 		}
 	}
 }
