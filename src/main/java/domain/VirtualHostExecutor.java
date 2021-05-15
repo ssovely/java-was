@@ -1,11 +1,10 @@
-package service;
+package domain;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -14,9 +13,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import domain.HttpRequest;
-import domain.HttpResponse;
-import domain.VirtualHost;
+import utils.HttpRequestParser;
 
 public class VirtualHostExecutor implements Runnable {
 	public static final Logger LOGGER = LoggerFactory.getLogger(VirtualHostExecutor.class);
@@ -35,19 +32,29 @@ public class VirtualHostExecutor implements Runnable {
 
 	@Override
 	public void run() {
-		try (OutputStream outputStream = new BufferedOutputStream(connection.getOutputStream());
-			 Writer writer = new OutputStreamWriter(outputStream)) {
+		try (InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8);
+			 OutputStreamWriter outputStreamWriter = new OutputStreamWriter(connection.getOutputStream())) {
 
-			HttpRequest httpRequest = HttpRequestParser.parseRequest(connection.getInputStream());
+			HttpRequest httpRequest = HttpRequestParser.parseRequest(inputStreamReader);
 			VirtualHost virtualHost = findVirtualHost(httpRequest.getHost());
 			HttpResponse httpResponse = virtualHost.execute(httpRequest);
+
+			sendResponse(outputStreamWriter, httpRequest, httpResponse);
 
 		} catch (IOException exception) {
 			LOGGER.error("Error talking to {}", connection.getRemoteSocketAddress(), exception);
 		}
 	}
 
-	public VirtualHost findVirtualHost(String serverName) {
+	private void sendResponse(OutputStreamWriter outputStreamWriter, HttpRequest request, HttpResponse response) throws
+		IOException {
+		response.setVersion(request.getVersion());
+		outputStreamWriter.write(response.toString());
+		outputStreamWriter.flush();
+	}
+
+	public VirtualHost findVirtualHost(String host) {
+		String serverName = host.split(":")[0];
 		return virtualHostMap.getOrDefault(serverName, virtualHosts.get(0));
 	}
 }

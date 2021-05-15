@@ -1,6 +1,8 @@
 package domain;
 
 import java.io.File;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
@@ -40,5 +42,16 @@ public class RootDirectory {
 	@Override
 	public int hashCode() {
 		return Objects.hash(directory);
+	}
+
+	public String getAbsolutePath(String uri) {
+		String absolutePath = directory.getAbsolutePath();
+		return absolutePath + FileSystems.getDefault().getSeparator() + uri;
+	}
+
+	public boolean isHigherLayer(String uri) {
+		String targetPath = getAbsolutePath(uri);
+		String absoluteTargetPath = new File(targetPath).getAbsolutePath();
+		return !StringUtils.contains(absoluteTargetPath, directory.getAbsolutePath());
 	}
 }

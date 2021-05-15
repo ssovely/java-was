@@ -5,6 +5,8 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 
+import type.HttpMethod;
+
 public class HttpRequest {
 	public static final String HOST = "Host";
 	private HttpMethod method;
@@ -36,6 +38,22 @@ public class HttpRequest {
 
 	public static HttpRequestBuilder builder() {
 		return new HttpRequestBuilder();
+	}
+
+	public boolean isMethod(HttpMethod method) {
+		return this.method == method;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public boolean isSameUriExtension(String extension) {
+		return StringUtils.equals(StringUtils.substringAfter(uri, "."), extension);
+	}
+
+	public String getUri() {
+		return uri.substring(1);
 	}
 
 	public String getHost() {

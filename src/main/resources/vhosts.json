@@ -2,21 +2,23 @@
   {
     "serverPort": "8080",
     "serverName": "www.jeonghun1.com",
-    "rootDirectory": "/",
+    "rootDirectory": "./target/classes/server1",
     "errorDocument": {
-      "403": "403.html",
-      "404": "404.html",
-      "500": "500.html"
+      "400": "error/400.html",
+      "403": "error/403.html",
+      "404": "error/404.html",
+      "500": "error/500.html"
     }
   },
   {
     "serverPort": "8080",
     "serverName": "www.jeonghun2.com",
-    "rootDirectory": "/",
+    "rootDirectory": "./target/classes/server2",
     "errorDocument": {
-      "403": "403.html",
-      "404": "404.html",
-      "500": "500.html"
+      "400": "error/400.html",
+      "403": "error/403.html",
+      "404": "error/404.html",
+      "500": "error/500.html"
     }
   }
 ]

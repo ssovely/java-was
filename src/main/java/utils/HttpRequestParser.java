@@ -1,10 +1,8 @@
-package service;
+package utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -12,23 +10,21 @@ import domain.HttpRequest;
 import domain.HttpRequestBuilder;
 
 public class HttpRequestParser {
-	public static HttpRequest parseRequest(InputStream inputStream) throws IOException {
-		try (InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-			 BufferedReader reader = new BufferedReader(inputStreamReader)) {
+	public static HttpRequest parseRequest(InputStreamReader inputStreamReader) throws IOException {
+		BufferedReader reader = new BufferedReader(inputStreamReader);
 
-			if (!reader.ready()) {
-				throw new IllegalStateException();
-			}
-
-			HttpRequestBuilder httpRequestBuilder = HttpRequest.builder();
-			setRequestLine(httpRequestBuilder, reader.readLine());
-
-			while (reader.ready()) {
-				putHeader(httpRequestBuilder, reader.readLine());
-			}
-
-			return httpRequestBuilder.build();
+		if (!reader.ready()) {
+			throw new IllegalStateException();
 		}
+
+		HttpRequestBuilder httpRequestBuilder = HttpRequest.builder();
+		setRequestLine(httpRequestBuilder, reader.readLine());
+
+		while (reader.ready()) {
+			putHeader(httpRequestBuilder, reader.readLine());
+		}
+
+		return httpRequestBuilder.build();
 	}
 
 	public static void setRequestLine(HttpRequestBuilder builder, String line) {
